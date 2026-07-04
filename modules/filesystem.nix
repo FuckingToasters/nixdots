@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userSettings, ... }:
 
 {
   # File System
@@ -46,7 +46,7 @@
 
   # Bind user Hermes skills into system Hermes home so the gateway/se see them
   fileSystems."/var/lib/hermes/.hermes/skills" = {
-    device = "/home/henrikp/.hermes/skills";
+    device = "${userSettings.homedir}/.hermes/skills";
     fsType = "none";
     options = [ "bind" ];
   };

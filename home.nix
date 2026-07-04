@@ -54,7 +54,7 @@ let
   sharedInitExtra = ''
     ${pkgs.fastfetch}/bin/fastfetch
 
-    export HERMES_HOME="/home/henrikp/.hermes"
+    export HERMES_HOME="/home/${config.home.username}/.hermes"
 
     hyprscripts() {
         if [ $# -eq 0 ]; then
@@ -82,7 +82,7 @@ in
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_STYLE_OVERRIDE = "kvantum";
     QT_QPA_PLATFORM = "wayland";
-    HERMES_HOME = "/home/henrikp/.hermes";
+    HERMES_HOME = "${config.home.homeDirectory}/.hermes";
   };
   #home.extraGroups = [ "docker" ];
   # --- Example Kvantum theme setup (optional, for better Qt consistency) ---

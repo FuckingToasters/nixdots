@@ -48,7 +48,7 @@
       };
 
       userSettings = rec {
-        username = "henrikp";
+        username = "sn0w";
         gid = 100;
         uid = 1026;
         timezone = "Europe/Berlin";
