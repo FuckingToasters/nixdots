@@ -26,11 +26,11 @@
       options = [ "x-systemd.automount" "noauto" "rw" "vers=4" ];
     };
 
-    #fileSystems."/mnt/stuff" = {
-      #device = "192.168.86.202:/mnt/stuff";
-      #fsType = "nfs";
-      #options = [ "x-systemd.automount" "noauto" "rw" "vers=4" ];
-    #};
+    fileSystems."/mnt/bewerbung" = {
+      device = "100.114.145.128:/volume1/Bewerbung";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "rw" "vers=4" ];
+    };
 
     #fileSystems."/mnt/hub" = {
       #device = "192.168.86.202:/mnt/hub";
@@ -43,5 +43,12 @@
       #fsType = "nfs";
       #options = [ "x-systemd.automount" "noauto" "rw" "vers=4" ];
     #};
+
+  # Bind user Hermes skills into system Hermes home so the gateway/se see them
+  fileSystems."/var/lib/hermes/.hermes/skills" = {
+    device = "/home/henrikp/.hermes/skills";
+    fsType = "none";
+    options = [ "bind" ];
+  };
 
 }

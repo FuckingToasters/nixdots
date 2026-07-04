@@ -6,9 +6,8 @@
     wifi.backend = "iwd";
   };
   services.fwupd.enable = true;
-  services.blueman.enable = true;  
+  services.blueman.enable = true;
   services.printing.enable = true;
-  #services.pulseaudio.enable = false;
   services.acpid.enable = true;
   security.rtkit.enable = true;
   security.pam.services = {
@@ -16,13 +15,15 @@
     sudo.fprintAuth = true;
     gdm.fprintAuth = true;
   };
-  services."06cb-009a-fingerprint-sensor" = {                                 
-    enable = true;                                                            
-    backend = "python-validity";                                              
+  systemd.services."open-fprintd-resume".enable = true;
+  systemd.services."open-fprintd-suspend".enable = true;
+  services."06cb-009a-fingerprint-sensor" = {
+    enable = true;
+    backend = "python-validity";
   };
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "client"; # client, server, both
+    useRoutingFeatures = "client";
   };
   services.pipewire = {
     enable = true;
@@ -42,10 +43,14 @@
     '';
 
     network = {
-      #listenAddress = "any";     # optional, allows remote connections
-      #startWhenNeeded = true;    # socket activation
     };
+  };
 
+  services.sunshine = {
+    enable = false;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
   };
 
   services.displayManager.sddm.enable = true;
@@ -57,17 +62,28 @@
   services.resolved.enable = true;
 
   services.openssh.enable = true;
-
-  services.flatpak.enable = true; 
-  services.xserver.enable = true;
-
+  services.flatpak.enable = true;
   services.mullvad-vpn.enable = true;
+
+  services.hermes-agent = {
+    enable = true;
+    settings.model.default = "anthropic/claude-sonnet-4";
+    environmentFiles = [ "/etc/hermes/hermes-env" ];
+    addToSystemPackages = true;
+  };
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      log-driver = "journald";
+      storage-driver = "overlay2";
+    };
+  };
   virtualisation.podman = {
-  enable = true;
-  dockerCompat = true;
+    enable = false;
+    dockerCompat = false;
   };
 
   nix.gc = {
@@ -79,8 +95,6 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 
-  security.polkit.enable = true; # polkit
-  services.gnome.gnome-keyring.enable = true; # secret service
-
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 }
-

@@ -6,15 +6,38 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs.config.allowUnfree = true;
+
   home-manager = {
-    #useGlobalPkgs = true;
+    useGlobalPkgs = true;
     #useUserPackages = true;
+    backupFileExtension = "hm-backup";
     extraSpecialArgs = { inherit inputs systemSettings userSettings; };
     users.${userSettings.username} = {
       imports = [ ./home.nix ];
     };
   };
-  
+
+  # Ensure the "users" group has the same GID as on the NAS
+  users.groups.users = {
+    gid = userSettings.gid;
+  };
+
+  # Define the main user with the same UID/GID as NAS user "sn0w"
+  users.users.${userSettings.username} = {
+    isNormalUser = true;
+    uid = userSettings.uid;
+    group = "users";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "libvirtd"
+      "input"
+    ];
+    home = userSettings.homedir;
+    createHome = true;
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -29,7 +52,7 @@
 
   time.timeZone = "${userSettings.timezone}";
   i18n.defaultLocale = "${userSettings.locale}";
-  users.groups.libvirtd.members = ["${userSettings.username}"];
+  #users.groups.libvirtd.members = ["${userSettings.username}"];
 
   services.xserver.xkb = {
     layout = "${userSettings.keyboard_layout}";
@@ -46,5 +69,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

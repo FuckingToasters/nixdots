@@ -1,14 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  users.users.henrikp = {
-    isNormalUser = true;
-    description = "Henrik Petersen";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
-  };
    
   # ========== System-wide Packages ==========
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # ========== Wayland/Hyprland & Desktop Environment ==========
     hyprland
@@ -50,7 +44,6 @@
     zig
     lua
     hugo
-    libgcc
 
     # ========== Media & Creative (System Tools) ==========
     beets
@@ -98,7 +91,7 @@
     kdePackages.kwallet
 
     # ========== Networking ==========
-    networkmanagerapplet
+    #networkmanagerapplet
     iwd
     blueman
     gvfs
@@ -123,21 +116,16 @@
     qt6ct
     libadwaita
 
-    # ========== Media, Audio & Video ==========
-    pipewire
-    pavucontrol
-    bluez
-
     # ========== System Infrastructure ==========
     nfs-utils
   ];
-
   # ========== System-wide Programs ==========
   programs.virt-manager.enable = true;
   programs.niri.enable = true;
   programs.hyprland.enable = true;
   programs.sway.enable = true;
   programs.nh.enable = true;
+  programs.firefox.enable = true;
 
   #programs.steam = {
    #enable = true;
@@ -147,7 +135,7 @@
   services.flatpak.packages = [
     "com.obsproject.Studio"
     "com.ticktick.TickTick"
-    "com.vivaldi.Vivaldi"
+    #"com.vivaldi.Vivaldi"
     #"org.gimp.GIMP"
     "us.zoom.Zoom"
     "page.codeberg.libre_menu_editor.LibreMenuEditor"

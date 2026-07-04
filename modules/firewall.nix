@@ -6,8 +6,8 @@
      #checkReversePath = "loose";
      trustedInterfaces = [ "tailscale0" ];
      # Allow NFS & localsend traffic through the firewall     
-     allowedTCPPorts = [ 2049 111 53317 ];
-     allowedUDPPorts = [ 2049 111 53317 ];
+     allowedTCPPorts = [ 2049 111 53317 47989 47990 5900];
+     allowedUDPPorts = [ 2049 111 53317 47989 47900 47999 5900];
      allowedTCPPortRanges = [
        { from = 32765; to = 32769; }
      ];
