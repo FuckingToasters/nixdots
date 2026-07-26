@@ -27,6 +27,7 @@ let
     nixservices = "nano ~/dotfiles/workpc/modules/services.nix";
     nixfilesystem = "nano ~/dotfiles/workpc/modules/filesystem.nix";
     nixfirewall = "nano ~/dotfiles/workpc/modules/firewall.nix";
+    nixsystemd = "nano ~/dotfiles/workpc/modules/systemd.nix";
     nixopti = "nix flake update && cleanup && rebuild";
     cavaconfig = "nano ~/.config/cava/config";
     hyprconfig = "nano ~/.config/hypr/hyprland.conf";

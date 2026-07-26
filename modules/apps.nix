@@ -125,7 +125,11 @@
   programs.hyprland.enable = true;
   programs.sway.enable = true;
   programs.nh.enable = true;
-  programs.firefox.enable = true;
+  
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-devedition;
+  };
 
   #programs.steam = {
    #enable = true;

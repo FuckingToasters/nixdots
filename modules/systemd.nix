@@ -9,7 +9,7 @@
       Service = {
         Type = "oneshot";
         WorkingDirectory = "/home/sn0w/dotfiles/workpc";
-        ExecStart = "${pkgs.bash}/bin/bash -c '\n  cd /home/sn0w/dotfiles/workpc && git add . && git commit -m auto && git push &&\n  cd /home/sn0w/.config && git add . && git commit -m auto && git push\n'";
+        ExecStart = "${pkgs.bash}/bin/bash -c 'cd ${config.home.homeDirectory}/dotfiles/workpc && git add . && git commit -m auto && git push; cd ${config.home.homeDirectory}/.config && git add . && git commit -m auto && git push'";
       };
       Install = { WantedBy = [ "default.target" ]; };
     };
