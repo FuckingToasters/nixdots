@@ -9,7 +9,7 @@
       Service = {
         Type = "oneshot";
         WorkingDirectory = "/home/sn0w/dotfiles/workpc";
-        ExecStart = "${pkgs.bash}/bin/bash -c 'for d in ${config.home.homeDirectory}/dotfiles/workpc ${config.home.homeDirectory}/.config; do if [ -d \"$d/.git\" ]; then cd \"$d\" && git add . && git commit -m auto && git push || true; fi; done'";
+        ExecStart = "${pkgs.bash}/bin/bash -c 'for d in ${config.home.homeDirectory}/dotfiles/workpc ${config.home.homeDirectory}/.config; do if [ -d \"$d/.git\" ]; then cd \"$d\" && git add . && git commit -m auto && GIT_SSH_COMMAND=\"ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519_autogitpush -o IdentitiesOnly=yes\" git push || true; fi; done'";
       };
       Install = { WantedBy = [ "default.target" ]; };
     };
