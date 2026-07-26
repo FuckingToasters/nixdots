@@ -76,7 +76,6 @@
             ./configuration.nix
             ./modules/apps.nix
             ./modules/services.nix
-            ./modules/systemd.nix
             ./modules/filesystem.nix
             ./modules/firewall.nix
             ./modules/misc.nix
@@ -99,7 +98,7 @@
                 extraSpecialArgs = {
                   inherit unstablePkgs inputs userSettings;
                 };
-                users.${userSettings.username}.imports = [ ./home.nix ];
+                users.${userSettings.username}.imports = [ ./home.nix ./modules/systemd.nix ];
               };
             })
           ];

@@ -218,34 +218,6 @@ in
     kdePackages.kleopatra
   ];
 
-  systemd.user.services.autogitpush = {
-    Unit = {
-      Description = "Periodically auto git commit/push your repo";
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = ''
-        ${pkgs.bash}/bin/bash -c '
-          cd ${config.home.homeDirectory}/dotfiles && git add . && git commit -m "auto" && git push
-          cd ${config.home.homeDirectory}/.config && git add . && git commit -m "auto" && git push
-        '
-      '';
-    };
-  };
-
-  systemd.user.timers.autogitpush = {
-    Unit = {
-      Description = "Timer for autogitpush";
-    };
-    Timer = {
-      OnUnitActiveSec = "5min"; # adjust as you want
-      Persistent = true;
-    };
-    Install = {
-      WantedBy = [ "timers.target" ];
-    };
-  };
-
   fonts.fontconfig = {
      enable = true;
      defaultFonts = {
