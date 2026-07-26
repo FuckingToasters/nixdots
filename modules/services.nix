@@ -15,8 +15,6 @@
     sudo.fprintAuth = true;
     gdm.fprintAuth = true;
   };
-  systemd.services."open-fprintd-resume".enable = true;
-  systemd.services."open-fprintd-suspend".enable = true;
   services."06cb-009a-fingerprint-sensor" = {
     enable = true;
     backend = "python-validity";
@@ -64,6 +62,7 @@
   services.openssh.enable = true;
   services.flatpak.enable = true;
   services.mullvad-vpn.enable = true;
+  services.i2p.enable = true;
 
   services.hermes-agent = {
     enable = true;
@@ -71,6 +70,24 @@
     environmentFiles = [ "/etc/hermes/hermes-env" ];
     addToSystemPackages = true;
   };
+  
+  #services.i2pd = {
+    #enable = true;
+    #port = 30777;
+    #ntcp2.port = 30776;
+
+    #proto = {
+      #httpProxy.enable = true;
+      #socksProxy.enable = true;
+
+      #http = {
+        #enable = true;
+        #address = "127.0.0.1";
+        #hostname = "localhost";
+        #port = 7070;
+      #};
+    #};
+  #};
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;

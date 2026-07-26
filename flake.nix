@@ -1,5 +1,5 @@
 {
-  description = "Henrik's Flake";
+  description = "sn0w's Flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -67,20 +67,19 @@
         ${systemSettings.hostname} = nixpkgs.lib.nixosSystem {
           system = systemSettings.system;
 
+          specialArgs = {
+            inherit inputs systemSettings userSettings unstablePkgs;
+          };
+
           modules = [
             hermes-agent.nixosModules.default
             ./configuration.nix
             ./modules/apps.nix
             ./modules/services.nix
+            ./modules/systemd.nix
             ./modules/filesystem.nix
             ./modules/firewall.nix
             ./modules/misc.nix
-
-            ({ ... }: {
-              home-manager.extraSpecialArgs = {
-                inherit unstablePkgs inputs userSettings;
-              };
-            })
 
             nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
@@ -92,11 +91,18 @@
                 winapps.packages.${pkgs.system}.winapps-launcher
               ];
             })
-          ];
 
-          specialArgs = {
-            inherit inputs systemSettings userSettings unstablePkgs;
-          };
+            ({ ... }: {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit unstablePkgs inputs userSettings;
+                };
+                users.${userSettings.username}.imports = [ ./home.nix ];
+              };
+            })
+          ];
         };
       };
     };
