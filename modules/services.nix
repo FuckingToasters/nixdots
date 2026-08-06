@@ -5,6 +5,13 @@
     enable = true;
     wifi.backend = "iwd";
   };
+
+  services.connman.extraConfig = ''
+    BackgroundScanning = true
+    AllowHostnameUpdates = false
+    EnableOnlineCheck = false
+  '';
+
   services.fwupd.enable = true;
   services.blueman.enable = true;
   services.printing.enable = true;
@@ -51,13 +58,25 @@
     openFirewall = true;
   };
 
+  services.resolved = {
+    enable = true;
+
+    # All the knobs go under `settings` in current NixOS
+    settings = {
+      DNS = [ "1.1.1.1" "8.8.8.8" ];
+      FallbackDNS = [ "9.9.9.9" ];
+      # Optional, but can be nice:
+      MulticastDNS = "resolve";
+      # LLMNR = "no";
+    };
+  };
+
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   services.udisks2.enable = true;
   services.gvfs.enable = true;
   services.envfs.enable = true;
-  services.resolved.enable = true;
 
   services.openssh.enable = true;
   services.flatpak.enable = true;
