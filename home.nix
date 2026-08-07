@@ -207,7 +207,7 @@ in
     #sunshine
     wayvnc
     remmina
-    exodus
+    unstablePkgs.exodus
 
     # ========== VPN & Network (User-specific) ==========
     mullvad-vpn
