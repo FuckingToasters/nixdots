@@ -77,6 +77,10 @@
     environmentFiles = [ "/etc/hermes/hermes-env" ];
     addToSystemPackages = true;
   };
+
+  services.flatpak.packages = [
+    "io.exodus.Exodus"
+  ];
   
   #services.i2pd = {
     #enable = true;
