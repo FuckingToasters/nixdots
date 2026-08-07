@@ -9,7 +9,7 @@
       Service = {
         Type = "oneshot";
         WorkingDirectory = "/home/sn0w/dotfiles/workpc";
-        ExecStart = "${pkgs.bash}/bin/bash -c 'for d in ${config.home.homeDirectory}/dotfiles/workpc ${config.home.homeDirectory}/.config; do if [ -d \"$d/.git\" ]; then cd \"$d\" && git add . && git commit -m auto && GIT_SSH_COMMAND=\"ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519_autogitpush -o IdentitiesOnly=yes\" git push || true; fi; done'";
+        ExecStart = "${pkgs.bash}/bin/bash -c 'for d in ${config.home.homeDirectory}/dotfiles/workpc ${config.home.homeDirectory}/.config; do if [ -d \\\"$d/.git\\\" ]; then cd \\\"$d\\\" && git add . && git commit -m auto && GIT_SSH_COMMAND=\\\"ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519_autogitpush -o IdentitiesOnly=yes\\\" git push || true; fi; done'";
       };
       Install = { WantedBy = [ "default.target" ]; };
     };
@@ -43,14 +43,40 @@
       };
       Install = { WantedBy = [ "default.target" ]; };
     };
+
+    exodus-flatpak-update = {
+      Unit = {
+        Description = "Update Exodus Flatpak";
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.flatpak}/bin/flatpak update --user --noninteractive --assumeyes io.exodus.Exodus";
+      };
+    };
   };
 
-  systemd.user.timers.autogitpush = {
-    Unit = { Description = "Timer for autogitpush"; };
-    Timer = {
-      OnUnitActiveSec = "5min";
-      Persistent = true;
+  systemd.user.timers = {
+    autogitpush = {
+      Unit = { Description = "Timer for autogitpush"; };
+      Timer = {
+        OnUnitActiveSec = "5min";
+        Persistent = true;
+      };
+      Install = { WantedBy = [ "timers.target" ]; };
     };
-    Install = { WantedBy = [ "timers.target" ]; };
+
+    exodus-flatpak-update = {
+      Unit = {
+        Description = "Daily timer for Exodus Flatpak updates";
+      };
+      Timer = {
+        OnCalendar = "*-*-* 04:30:00";
+        RandomizedDelaySec = "30min";
+        Persistent = true;
+      };
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
+    };
   };
 }
