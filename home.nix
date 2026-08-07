@@ -207,7 +207,7 @@ in
     #sunshine
     wayvnc
     remmina
-    steam
+    exodus
 
     # ========== VPN & Network (User-specific) ==========
     mullvad-vpn
