@@ -207,7 +207,6 @@ in
     #sunshine
     wayvnc
     remmina
-    brave
 
     # ========== VPN & Network (User-specific) ==========
     mullvad-vpn
