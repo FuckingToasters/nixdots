@@ -150,4 +150,17 @@
     "org.kde.kate"
 
   ];
-}
+    programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      openssl
+      curl
+      icu
+      nss
+    ];
+   };
+  }
+
+
