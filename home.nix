@@ -118,6 +118,8 @@ in
     catppuccin-cursors # cursor theme
     papirus-nord # icon theme
 
+    # ========== Font Packages ============
+    corefonts
     # ========== Personal Utilities ==========
     figlet
     qalculate-qt
@@ -267,7 +269,7 @@ in
   programs.waybar.enable = true;
   programs.swaylock.enable = true;
   #programs.nix-search-tv.enableTelevisionIntegration = true;
-
+  
   nix = {
     enable = true;
     settings = {
