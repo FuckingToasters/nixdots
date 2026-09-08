@@ -340,6 +340,15 @@ in
     };
   };
 
+  programs.chromium = {
+    enable = true;
+    package = pkgs.ungoogled-chromium;
+
+    commandLineArgs = [
+      "--no-default-browser-check"
+      "--no-first-run"
+    ];
+  };
 
   programs.hyprpanel = {
     # Configure and theme almost all options from the GUI.
